@@ -65,12 +65,12 @@ def db_to_local():
     # 关闭数据库连接
     db.close()
 
-    with open('example.json', 'w', encoding='utf8') as f:
+    with open('./data/example.json', 'w', encoding='utf8') as f:
         json.dump(data, f, ensure_ascii=False)
 
 
 def fetch_data_from_file():
-    with open('example.json', 'r', encoding='utf8') as f:
+    with open('./data/example.json', 'r', encoding='utf8') as f:
         ret = json.load(f)
     return ret
 
