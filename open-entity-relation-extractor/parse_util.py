@@ -13,7 +13,7 @@ from pyltp import Segmentor
 import jieba
 from pyltp import NamedEntityRecognizer
 # LTP_DATA_DIR = '/Users/agnostic/NLP/ltp_data'
-LTP_DATA_DIR = '/home/agnostic/dataset/ltp_data'
+LTP_DATA_DIR = '..\\..\\ltp_data_v3.4.0\\'
 par_model_path = os.path.join(LTP_DATA_DIR, 'parser.model')  # 依存句法分析模型路径，模型名称为`parser.model`
 ner_model_path = os.path.join(LTP_DATA_DIR, 'ner.model')  # 命名实体识别模型路径，模型名称为`pos.model`
 pos_model_path = os.path.join(LTP_DATA_DIR, 'pos.model')  # 词性标注模型路径，模型名称为`pos.model`
