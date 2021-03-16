@@ -16,7 +16,7 @@ from mlxtend.frequent_patterns import apriori
 from pymongo import MongoClient
 from pyltp import Segmentor, Postagger, Parser, NamedEntityRecognizer, SementicRoleLabeller
 from pyltp import SentenceSplitter
-LTP_DIR = 'D:\LTP\MODEL\ltp_data'  # ltp模型目录的路径
+LTP_DIR = '..\\..\\ltp_data_v3.4.0\\'  # ltp模型目录的路径
 segmentor = Segmentor()
 segmentor.load(os.path.join(LTP_DIR, "cws.model"))# 分词模型路径，模型名称为`cws.model`
 postagger = Postagger()
