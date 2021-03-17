@@ -45,16 +45,16 @@ single_words_set_guidejieguo=['由此','那么','让','于是','所以','故','�
                 '拓宽','蔓延','滋生','塑造','整顿','误导','旨在','强化','已经','越来越','不断','逐步','尤其',\
                 '最终','就要','依然','几乎','日益','稳步','一度','随后','结果','以便','相继','那么','日趋',\
                 '终究','更加','随之','不能不','不得不','不至于','即将','势必','只有','更为','实际上','尽可能']
-with codecs.open(r'C:/Users/Administrator/Desktop/lzk/Causal_event/data/由果溯因所有词组.txt',encoding='utf-8') as f1:
+with codecs.open(r'../data/由果溯因所有词组.txt',encoding='utf-8') as f1:
     gy_words=f1.read().split(',')
 
 
-with codecs.open(r'C:/Users/Administrator/Desktop/lzk/Causal_event/data/由因溯果所有词组.txt',encoding='utf-8') as f1:
+with codecs.open(r'../data/由因溯果所有词组.txt',encoding='utf-8') as f1:
     yg_words=f1.read().split(',')
 
 
-triple_words=pd.read_csv(r'C:/Users/Administrator/Desktop/lzk/Causal_event/data/v_df_o3.csv',encoding='utf-8')
-triple_guide_words=triple_words[:88].words.values#超参数，取多大的置信度，三元tag触发词典
+# triple_words=pd.read_csv(r'../data/v_df_o3.csv',encoding='utf-8')
+# triple_guide_words=triple_words[:88].words.values#超参数，取多大的置信度，三元tag触发词典
 
 
 
@@ -452,26 +452,26 @@ def split_sentences(sentences,words):#分裂句子，分裂后的原因部分和
         else:
             pass
 
-    else:#tag的长度为3,在不同句的位置才能有因果
-        tag_1=words[0]
-        tag_2=words[1]
-        tag_3=words[2]
-        con_words='-'.join(words).strip().replace(' ','')
-        if con_words in triple_guide_words:
-            subsents,tag1_sentens_pos,tag2_sentens_pos,tag3_sentens_pos=judge_tag_position_in_sentences_3(sentences,words)
-            if tag1_sentens_pos!=tag2_sentens_pos and tag3_sentens_pos==tag2_sentens_pos:
-                yuanyin_sents=subsents[tag1_sentens_pos]
-                jieguo_sents=subsents[tag2_sentens_pos]
-            elif tag1_sentens_pos==tag2_sentens_pos and tag3_sentens_pos!=tag2_sentens_pos:
-                yuanyin_sents=subsents[tag1_sentens_pos]
-                jieguo_sents=subsents[tag3_sentens_pos]
-            elif tag1_sentens_pos!=tag2_sentens_pos and tag3_sentens_pos!=tag2_sentens_pos:#多组因果
-                yuanyin_sents=[subsents[tag1_sentens_pos],subsents[tag2_sentens_pos]]
-                jieguo_sents=[subsents[tag2_sentens_pos],subsents[tag3_sentens_pos]]
-            else:
-                pass
-        else:
-            pass
+    # else:#tag的长度为3,在不同句的位置才能有因果
+    #     tag_1=words[0]
+    #     tag_2=words[1]
+    #     tag_3=words[2]
+    #     con_words='-'.join(words).strip().replace(' ','')
+    #     if con_words in triple_guide_words:
+    #         subsents,tag1_sentens_pos,tag2_sentens_pos,tag3_sentens_pos=judge_tag_position_in_sentences_3(sentences,words)
+    #         if tag1_sentens_pos!=tag2_sentens_pos and tag3_sentens_pos==tag2_sentens_pos:
+    #             yuanyin_sents=subsents[tag1_sentens_pos]
+    #             jieguo_sents=subsents[tag2_sentens_pos]
+    #         elif tag1_sentens_pos==tag2_sentens_pos and tag3_sentens_pos!=tag2_sentens_pos:
+    #             yuanyin_sents=subsents[tag1_sentens_pos]
+    #             jieguo_sents=subsents[tag3_sentens_pos]
+    #         elif tag1_sentens_pos!=tag2_sentens_pos and tag3_sentens_pos!=tag2_sentens_pos:#多组因果
+    #             yuanyin_sents=[subsents[tag1_sentens_pos],subsents[tag2_sentens_pos]]
+    #             jieguo_sents=[subsents[tag2_sentens_pos],subsents[tag3_sentens_pos]]
+    #         else:
+    #             pass
+    #     else:
+    #         pass
     return yuanyin_sents,jieguo_sents,tags
 
 def main(sentence,words):#分裂主控程序
@@ -486,7 +486,7 @@ def main(sentence,words):#分裂主控程序
     return yuanyin_sents,jieguo_sents,tags
 
 if __name__ == "__main__":
-    path=r'C:/Users/Administrator/Desktop/lzk/Causal_event/data/casual_sentence_final.txt'
+    path=r'../data/test.txt'
     with codecs.open(path,encoding='utf-8-sig') as fr:
         sentence_lines=fr.readlines()
     all_split_sentences_tags=pd.DataFrame()
@@ -495,7 +495,7 @@ if __name__ == "__main__":
     Results=[]
     Tags=[]
     for line in sentence_lines:
-        # print(line)
+        print("line",line)
         example_sentence=line.split('  ')[0]#因果句
         example_words=line.split('  ')[1].replace('\n','').replace("'",'').split(',')#引导词
         yuanyin_sents,jieguo_sents,words=main(example_sentence,example_words)
@@ -510,7 +510,8 @@ if __name__ == "__main__":
     all_split_sentences_tags['yuanyin_part']=Reasons
     all_split_sentences_tags['jieguo_part']=Results
     all_split_sentences_tags['tags']=Tags
-    # all_split_sentences_tags.to_csv('C:/Users/Administrator/Desktop/lzk/Causal_event/data/all_split_sentences.csv',encoding='utf-8')
+    print("*****",all_split_sentences_tags)
+    # all_split_sentences_tags.to_csv('../data/all_split_sentences.csv',encoding='utf-8')
 
             
 

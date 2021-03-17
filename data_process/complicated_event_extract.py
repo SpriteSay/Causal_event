@@ -112,7 +112,7 @@ def extract_events_by_postags(sentences):
     return casual_sjs
 
 
-path = r'H:/因果抽取_1/Causal_event/data/all_split_sentences.csv'
+path = r'../data/all_split_sentences.csv'
  
 article_causality_sentence=pd.read_csv(path).drop_duplicates(subset=['yuanyin_part','jieguo_part'])#去重
 casual_sj_1v1=pd.DataFrame()
